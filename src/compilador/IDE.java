@@ -55,6 +55,7 @@ public class IDE extends javax.swing.JFrame {
         txtAreaCod = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblSimb = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnArchivo = new javax.swing.JMenu();
         bntNuevo = new javax.swing.JMenuItem();
@@ -120,6 +121,10 @@ public class IDE extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 20, 510, 370));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/img/protesis-3d (1).png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 400, 470, 250));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1300, 660));
 
@@ -465,6 +470,7 @@ public class IDE extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnGuardar;
     private javax.swing.JMenuItem btnTablaIdentificadores;
     private javax.swing.JMenu btnTablas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
