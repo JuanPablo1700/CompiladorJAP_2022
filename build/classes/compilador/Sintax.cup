@@ -44,36 +44,21 @@ terminal PR_Catch,
      PR_Class,
      PR_Def,
      PR_Default,
-     PR_DownArm,
-     PR_DownLeg,
      PR_Else,
      PR_Exact,
      PR_Exeption,
      PR_Flag,
      PR_For,
-     PR_GetAngle,
-     PR_GetPosition,
      PR_If,
      PR_Ing,
      PR_Interruption,
      PR_Imp,
      PR_Main,
-     PR_Motor,
-     PR_Move,
      PR_Option,
      PR_Part,
-     PR_Rotate,
-     PR_SetAngle,
-     PR_SetMotor,
-     PR_SetPosition,
-     PR_Speed,
      PR_Stop,
      PR_Try,
-     PR_TurnLeft,
-     PR_TurnRight,
      PR_Switch,
-     PR_UpArm,
-     PR_UpLeg,
      PR_Void,
      PR_While,
      PR_Word,
@@ -142,29 +127,14 @@ non terminal INICIO,
              LISTA_PART,
              LISTA_WORD,
              LISTA_FLAG,
-             SET_MOTOR,
-             SET_ANGLE,
-             GET_ANGLE,
-             MOVER,
-             LISTA_MOTORES,
              EXCEPCIONES,
-             ROTAR,
              FUNCION, 
              RETORNO, 
              PARAMETRO,
              TIPO_DATO,
              LLAMAR_METODO,
              METODOS,
-             VELOCIDAD,
-             MOV_IZQ,
-             MOV_DER,
              NUMERO,
-             GET_POSITION,
-             SET_POSITION,
-             UP_ARM, 
-             UP_LEG,
-             DOWN_LEG,
-             DOWN_ARM,
              OP_REL_MEN_MAY,
              FUNCION_MAIN,
              ASIGNACION,
@@ -233,21 +203,7 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   SWITCH | SWITCH SENTENCIA
             |   WHILE | WHILE SENTENCIA
             |   ARREGLO | ARREGLO SENTENCIA
-            |   SET_MOTOR | SET_MOTOR SENTENCIA
-            |   SET_ANGLE | SET_ANGLE SENTENCIA
-            |   GET_ANGLE | GET_ANGLE SENTENCIA
-            |   MOVER | MOVER SENTENCIA
             |   EXCEPCIONES | EXCEPCIONES SENTENCIA 
-            |   ROTAR | ROTAR SENTENCIA
-            |   UP_ARM | UP_ARM SENTENCIA
-            |   UP_LEG | UP_LEG SENTENCIA
-            |   DOWN_LEG | DOWN_LEG SENTENCIA
-            |   DOWN_ARM | DOWN_ARM SENTENCIA
-            |   VELOCIDAD | VELOCIDAD SENTENCIA
-            |   MOV_IZQ| MOV_IZQ SENTENCIA
-            |   MOV_DER | MOV_DER SENTENCIA
-            |   GET_POSITION| GET_POSITION SENTENCIA
-            |   SET_POSITION | SET_POSITION SENTENCIA
             |   ASIGNACION | ASIGNACION SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
 ;
@@ -412,15 +368,6 @@ DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
                     this.parser.errores += "Error sintáctico 14. Línea: "+ (eright + 1) + " Se esperaba un identificador. \n";
                 :}
             |   PR_Flag Identificador :e
-                {:
-                    this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
-                :}
-            |   PR_Motor LISTA_MOTORES PuntoComa
-            |   PR_Motor :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 27. Línea: "+ (eright + 1) + " Se esperaba un motor o una lista de motores. \n";
-                :}
-            |   PR_Motor LISTA_MOTORES :e
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
@@ -838,7 +785,6 @@ OP_REL_MEN_MAY ::= OpRel_Menor
         |   OpRel_MayorIgual
 ;
 LLAMAR_METODO   ::= Identificador OpAgrup_ParApert OpAgrup_ParCierre
-                |   PR_GetAngle OpAgrup_ParApert OpAgrup_ParCierre
                 |   ERRORES OpAgrup_ParApert OpAgrup_ParCierre
                 |   Identificador :e OpAgrup_ParCierre 
                     {:
@@ -1129,116 +1075,6 @@ LISTA_FLAG  ::= BOOLEAN
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un booleano. \n";
                 :}
-;
-SET_MOTOR   ::= Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_SetMotor OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_SetMotor OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   Identificador :e PR_SetMotor OpAgrup_ParApert Cadena_texto OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 67. Línea: "+ (eright + 1) + ". Se esperaba un 'identificador.setMotor'. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetMotor :e Cadena_texto OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 68. Línea: "+ (eright + 1) + ". Se esperaba un '(' después de setMotor. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 69. Línea: "+ (eright + 1) + ". Se esperaba un motor entre ''. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert Identificador OpAgrup_ParCierre PuntoComa :e
-                {:
-                    this.parser.errores += "Error sintáctico 69. Línea: "+ (eright + 1) + ". Se esperaba un motor entre ''. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert SimbEsp_Comilla Identificador :e OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 70. Línea: "+ (eright + 1) + " Se esperaba una comilla simple después del nombre del motor. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetMotor OpAgrup_ParApert :e Identificador SimbEsp_Comilla OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 71. Línea: "+ (eright + 1) + " Se esperaba una comilla simple antes del nombre del motor. \n";
-                :}
-;
-SET_ANGLE   ::= Identificador SimbEsp_Punto PR_SetAngle OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_SetAngle OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto PR_SetAngle OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_SetAngle OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-            |   Identificador SimbEsp_Punto PR_SetAngle OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-                {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + "   Se esperaba un ';' al final de la instrucción. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetAngle OpAgrup_ParApert Numero_Exact :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + "   Se esperaba un ) despues del numero. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetAngle OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                {:
-                    this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + "   Se esperaba un numero tipo exact entre los parentesis. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_SetAngle :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-                {:
-                    this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + "   Se esperaba un ( antes del numero. \n";
-                :}
-            |   Identificador :e PR_SetAngle OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 94. Línea: "+ (eright + 1) + "   Se esperaba un 'identificador.setAngle'. \n";
-                :}
-;
-GET_ANGLE   ::= Identificador SimbEsp_Punto PR_GetAngle OpAgrup_ParApert OpAgrup_ParCierre
-
-            |   ERRORES SimbEsp_Punto PR_GetAngle OpAgrup_ParApert OpAgrup_ParCierre
-            |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert OpAgrup_ParCierre
-            |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert OpAgrup_ParCierre
-
-            |   Identificador SimbEsp_Punto PR_GetAngle OpAgrup_ParApert error:e  
-                {:
-                    this.parser.errores += "Error sintáctico 30. Línea: "+ (eright + 1) + "   Se esperaba el simbolo ). \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_GetAngle :e OpAgrup_ParCierre   
-                {:
-                    this.parser.errores += "Error sintáctico 29. Línea: "+ (eright + 1) + "   Se esperaba el simbolo (. \n";
-                :}
-            |   Identificador :e PR_GetAngle OpAgrup_ParApert OpAgrup_ParCierre 
-                {:
-                    this.parser.errores += "Error sintáctico 112. Línea: "+ (eright + 1) + "   Se esperaba un 'identificador.getAngle. \n";
-                :}
-;
-MOVER   ::= PR_Move OpAgrup_ParApert LISTA_MOTORES OpAgrup_ParCierre PuntoComa
-
-        |   ERRORES OpAgrup_ParApert LISTA_MOTORES OpAgrup_ParCierre PuntoComa
-
-        |   PR_Move OpAgrup_ParApert LISTA_MOTORES OpAgrup_ParCierre :e
-            {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-            :}
-        |   PR_Move OpAgrup_ParApert LISTA_MOTORES :e PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 30. Línea: "+ (eright + 1) + ". Se esperaba el simbolo ). \n";
-            :}
-        |   PR_Move OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 31. Línea: "+ (eright + 1) + ". Se esperaban parametros. \n";
-            :}
-        |   PR_Move :e LISTA_MOTORES OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 32. Línea: "+ (eright + 1) + ". Se esperaba simbolo (. \n";
-            :}
-;
-LISTA_MOTORES   ::= Identificador
-                |   ERRORES
-                |   Identificador SimbEsp_Coma LISTA_MOTORES
-                |   ERRORES SimbEsp_Coma LISTA_MOTORES
-                |   Identificador SimbEsp_Coma error:e
-                    {:
-                        this.parser.errores += "Error sintáctico 33. Línea: "+ (eright + 1) + ". Se esperaba un identificador despues del simbolo ,. \n";
-                    :}
 ;
 EXCEPCIONES ::= PR_Try OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre PR_Catch OpAgrup_ParApert PR_Exeption Identificador OpAgrup_ParCierre OpAgrup_LlaveApert SENTENCIA OpAgrup_LlaveCierre
 
@@ -1537,230 +1373,6 @@ TIPO_DATO   ::= PR_Exact
             |   PR_Part 
             |   PR_Word 
             |   PR_Flag
-;
-VELOCIDAD   ::= Identificador SimbEsp_Punto PR_Speed OpAgrup_ParApert Numero_Part OpAgrup_ParCierre PuntoComa
-
-            |   ERRORES SimbEsp_Punto PR_Speed OpAgrup_ParApert Numero_Part OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert Numero_Part OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto PR_Speed OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert Numero_Part OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_Speed OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-            |   Identificador SimbEsp_Punto PR_Speed OpAgrup_ParApert Numero_Part OpAgrup_ParCierre :e
-                {:
-                    this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_Speed OpAgrup_ParApert Numero_Part :e PuntoComa
-                {:
-                    this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_Speed OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                {:
-                    this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero part entre los parentesis. \n";
-                :}
-            |   Identificador SimbEsp_Punto PR_Speed :e Numero_Part OpAgrup_ParCierre PuntoComa  
-                {:
-                    this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-                :}
-                    
-;
-MOV_IZQ ::= Identificador SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-        |   ERRORES SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-        |   Identificador SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-        |   ERRORES SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-    
-        |   Identificador SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-            {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert Numero_Exact :e PuntoComa
-            {:
-                this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnLeft OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnLeft :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-            {:
-                this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-            :}
-;
-MOV_DER ::= Identificador SimbEsp_Punto PR_TurnRight OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-        |   ERRORES SimbEsp_Punto PR_TurnRight OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-        |   Identificador SimbEsp_Punto PR_TurnRight OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-        |   ERRORES SimbEsp_Punto PR_TurnRight OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-        |   Identificador SimbEsp_Punto PR_TurnRight OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-            {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnRight OpAgrup_ParApert Numero_Exact :e PuntoComa
-            {:
-                this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnRight OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_TurnRight :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-            {:
-                this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-            :}
-;
-GET_POSITION    ::= Identificador SimbEsp_Punto PR_GetPosition OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-
-                |   ERRORES SimbEsp_Punto PR_GetPosition OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-                |   Identificador SimbEsp_Punto ERRORES OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-                |   ERRORES SimbEsp_Punto ERRORES OpAgrup_ParApert OpAgrup_ParCierre PuntoComa
-
-                |   Identificador SimbEsp_Punto PR_GetPosition OpAgrup_ParApert OpAgrup_ParCierre :e
-                    {:
-                        this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_GetPosition OpAgrup_ParApert :e PuntoComa
-                    {:
-                        this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del (. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_GetPosition :e OpAgrup_ParCierre PuntoComa  
-                    {:
-                        this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba el simbolo ( . \n";
-                    :}
-;
-SET_POSITION    ::= Identificador SimbEsp_Punto PR_SetPosition OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-                |   ERRORES SimbEsp_Punto PR_SetPosition OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-                |   Identificador SimbEsp_Punto PR_SetPosition OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-                |   ERRORES SimbEsp_Punto PR_SetPosition OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-                |   Identificador SimbEsp_Punto PR_SetPosition OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-                    {:
-                        this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_SetPosition OpAgrup_ParApert Numero_Exact :e PuntoComa
-                    {:
-                        this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_SetPosition OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                    {:
-                        this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_SetPosition :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-                    {:
-                        this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-                    :}
-;
-UP_ARM  ::= Identificador SimbEsp_Punto PR_UpArm OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-        |   Identificador SimbEsp_Punto PR_UpArm OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-                    {:
-                        this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_UpArm OpAgrup_ParApert Numero_Exact :e PuntoComa
-                    {:
-                        this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_UpArm OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                    {:
-                        this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_UpArm :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-                    {:
-                        this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-                    :}
-;
-UP_LEG  ::= Identificador SimbEsp_Punto PR_UpLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-        |   ERRORES SimbEsp_Punto PR_UpLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-        |   Identificador SimbEsp_Punto PR_UpLeg OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-        |   ERRORES SimbEsp_Punto PR_UpLeg OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-        |   Identificador SimbEsp_Punto PR_UpLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-            {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_UpLeg OpAgrup_ParApert Numero_Exact :e PuntoComa
-            {:
-                this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_UpLeg OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_UpLeg :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-            {:
-                this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-            :}
-;
-DOWN_ARM    ::= Identificador SimbEsp_Punto PR_DownArm OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-            |   ERRORES SimbEsp_Punto PR_DownArm OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto PR_DownArm OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_DownArm OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-            |   Identificador SimbEsp_Punto PR_DownArm OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-                    {:
-                        this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownArm OpAgrup_ParApert Numero_Exact :e PuntoComa
-                    {:
-                        this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownArm OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                    {:
-                        this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownArm :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-                    {:
-                        this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-                    :}
-;
-DOWN_LEG    ::= Identificador SimbEsp_Punto PR_DownLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa 
-
-            |   ERRORES SimbEsp_Punto PR_DownLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-            |   Identificador SimbEsp_Punto PR_DownLeg OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-            |   ERRORES SimbEsp_Punto PR_DownLeg OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-            |   Identificador SimbEsp_Punto PR_DownLeg OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-                    {:
-                        this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownLeg OpAgrup_ParApert Numero_Exact :e PuntoComa
-                    {:
-                        this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownLeg OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-                    {:
-                        this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero exact entre los parentesis. \n";
-                    :}
-                |   Identificador SimbEsp_Punto PR_DownLeg :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-                    {:
-                        this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-                    :}
-;
-ROTAR   ::= Identificador SimbEsp_Punto PR_Rotate OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-
-        |   ERRORES SimbEsp_Punto PR_Rotate OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre PuntoComa
-        |   Identificador SimbEsp_Punto PR_Rotate OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-        |   ERRORES SimbEsp_Punto PR_Rotate OpAgrup_ParApert ERRORES OpAgrup_ParCierre PuntoComa
-
-        |   Identificador SimbEsp_Punto PR_Rotate OpAgrup_ParApert Numero_Exact OpAgrup_ParCierre :e
-            {:
-                this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + ". Se esperaba un ; al final. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_Rotate OpAgrup_ParApert Numero_Exact :e PuntoComa
-            {:
-                this.parser.errores += "Error sintáctico 20. Línea: "+ (eright + 1) + ". Se esperaba un ) despues del numero. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_Rotate OpAgrup_ParApert :e OpAgrup_ParCierre PuntoComa 
-            {:
-                this.parser.errores += "Error sintáctico 21. Línea: "+ (eright + 1) + ". Se esperaba un numero part entre los parentesis. \n";
-            :}
-        |   Identificador SimbEsp_Punto PR_Rotate :e Numero_Exact OpAgrup_ParCierre PuntoComa  
-            {:
-                this.parser.errores += "Error sintáctico 22. Línea: "+ (eright + 1) + ". Se esperaba un ( antes del numero. \n";
-            :}
 ;
 ERRORES ::= ERROR1
         |   ERROR2
