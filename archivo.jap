@@ -1,14 +1,6 @@
-class caminar {
- def void main(){
-	AsignaGrados();
- }
+class corre {
 
- def void AsignaGrados() {
-	
-	exact i;
-	*- Ya que tenemos el motor en 0 grados aplicaremos la función de move que hace 
-	que se ejecuten una serie de movimientos equivalentes a un paso.-*
-	
-	
+def void main() {
+   word saludo = 'Holi BB';
 }
-}**Fin class
+}
