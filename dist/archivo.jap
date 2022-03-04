@@ -1,0 +1,49 @@
+class caminar {
+ def void main(){
+	exact grado;
+ 	motor motor1_der;
+	motor motor2_der;
+	motor motor3_der;
+ 	5motor motor1_izq;
+	motor motor2_izq;
+	5motor motor3_izq;
+ 	motor1_der.setMotor 'MOTOR_PWMSERVO');
+ 	motor2_der.setMotor('MOTOR_PWMSERVO');
+ 	motor3_der.setMotor('MOTOR_PWMSERVO');
+ 	motor1_izq.setMotor('MOTOR_PWMSERVO');
+ 	motor2_izq.setMotor('MOTOR_PWMSERVO');
+ 	motor3_izq.setMotor('MOTOR_PWMSERVO');
+	AsignaGrados()
+ }
+
+ def 5void AsignaGrados() {
+	part decimal = 2.5
+	decimal = decimal * 5 / 2 +5;
+	6part numero = +5.5;
+	if(grado.grado() != 0) {
+		motor1_der.setAngle(5e+5);
+	}
+	if(motor2_der.getAngle() != 0) {
+		motor2_der.setAngle(0)
+	}
+	if(motor3_der.getAngle() != 0) {
+		motor3_der.setAngle(0)
+	}
+	if(motor1_izq.getAngle() != 0) {
+		motor1_izq setAngle(0);
+	}
+	if(motor2_izq.getAngle() != 0) {
+		motor2_izq.setAngle(0.5ee+5);
+	}
+	5if(motor3_izq.getAngle() != 0) {
+		motor3_izq.setAngle(0;
+	}
+
+	*- Ya que tenemos el motor en 0 grados aplicaremos la función de move que hace 
+	que se ejecuten una serie de movimientos equivalentes a un paso.-*
+	
+	for (exact i=0; i < 10; i ){
+		move(motor1_der, motor2_der, motor3_der, motor1_izq, motor2_izq, motor3_izq);
+ 	}
+}
+}**Fin class
