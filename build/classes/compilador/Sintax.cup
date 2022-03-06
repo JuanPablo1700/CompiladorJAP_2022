@@ -57,9 +57,10 @@ parser code
 
 action code{:
     private static char tipo(Object o){
-        if (o == null) return 'i';
-        else if (o instanceof Integer) return 'e';
-        else return 'c';
+        if (o == null) return 'i'; //indefinido
+        else if (o instanceof Integer) return 'e'; //e= entero
+        else if (o instanceof Float) return 'f'; //f= flotante
+        else return 'c'; //c = cadena
     }
 :}
 terminal PR_Catch,
