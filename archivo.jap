@@ -1,6 +1,11 @@
-class corre {
+class caminar {
+ def void main(){
+	exact grado;
+	grado = 'ghola';
+ 	AsignaGrados();
+ }
 
-def void main() {
-   word saludo = 'Holi BB';
+ def void AsignaGrados() {
+
 }
-}
+}**Fin class
