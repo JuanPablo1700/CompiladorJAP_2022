@@ -1,5 +1,6 @@
 class caminar {
  def void main(){
+<<<<<<< HEAD
 	exact grado = i;
  	motor motor1_der;
 	motor motor2_der;
@@ -43,4 +44,10 @@ class caminar {
 		move(motor1_der, motor2_der, motor3_der, motor1_izq, motor2_izq, motor3_izq);
  	}
 }
+=======
+	exact grado = 5.9;
+	**grado = 'ghola';
+ 	AsignaGrados();
+ }
+>>>>>>> 0221633d0ae5d833f4f120f5159cfe33aaed5e11
 }**Fin class

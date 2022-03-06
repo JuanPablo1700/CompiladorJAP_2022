@@ -3,11 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Principales/Documentos/ITTEPIC/8%20Octavo/Autómatas%20II/Compilador%202/CompiladorJAP_2022/src/compilador/TablaSimbolos.java</file>
             <file>file:/D:/Principales/Documentos/ITTEPIC/8%20Octavo/Autómatas%20II/Compilador%202/CompiladorJAP_2022/src/compilador/IDE.java</file>
             <file>file:/D:/Principales/Documentos/ITTEPIC/8%20Octavo/Autómatas%20II/Compilador%202/CompiladorJAP_2022/src/compilador/LexerCup.flex</file>
             <file>file:/D:/Principales/Documentos/ITTEPIC/8%20Octavo/Autómatas%20II/Compilador%202/CompiladorJAP_2022/src/compilador/Sintax.cup</file>
             <file>file:/D:/Principales/Documentos/ITTEPIC/8%20Octavo/Autómatas%20II/Compilador%202/CompiladorJAP_2022/src/compilador/Lexer.flex</file>
+=======
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/IDE.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Lexer.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/LexerCup.flex</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Sintax.cup</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Principal.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/TablaSimbolos.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Lexer.flex</file>
+>>>>>>> 0221633d0ae5d833f4f120f5159cfe33aaed5e11
         </group>
     </open-files>
 </project-private>
