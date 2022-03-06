@@ -4,11 +4,26 @@ import java_cup.runtime.Symbol;
 
 parser code
 {:
+    static TablaSimbolos tabla = new TablaSimbolos();
     public Lexer lex;
     public static String errores = "";
     StringBuilder m = new StringBuilder("");
  
    private Symbol s;
+
+   public static void main(String[] arg){
+        parser parserObj = new parser();
+        Yylex miAnalizadorLexico = 
+            new Yylex(new InputStreamReader(System.in), tabla);
+        parserObj.setScanner(miAnalizadorLexico);
+        try{
+            parserObj.parse();
+            tabla.imprimir();
+        }catch(Exception x){
+            x.printStackTrace();
+            System.out.println("Error fatal.\n");
+        }
+    }
 
    public void syntax_error(Symbol s){
         if(s.value == null)
@@ -21,7 +36,7 @@ parser code
         append("La Cadena:" + s.value+" en la Linea: "+(s.right+1)+ " esta fuera de contexto (ERROR CRITICO SE DEBE SOLUCIONAR ANTES DE CONTINUAR, NO SE IDENTIFICO ).");
     }
     
-    public static void append(String mensaje){
+        public static void append(String mensaje){
         StringBuilder me;
         me = new StringBuilder("Error sintactico: "+" ");
         me.append(mensaje);
@@ -38,8 +53,15 @@ parser code
     public void rstError(){
         errores = "";
     }
-:};
+:}; //parser code
 
+action code{:
+    private static char tipo(Object o){
+        if (o == null) return 'i';
+        else if (o instanceof Integer) return 'e';
+        else return 'c';
+    }
+:}
 terminal PR_Catch,
      PR_Class,
      PR_Def,
