@@ -3,6 +3,7 @@ import java_cup.runtime.Symbol;
 %%
 %class LexerCup
 %type java_cup.runtime.Symbol
+%unicode
 %cup
 %full
 %line
@@ -16,6 +17,14 @@ cadena_texto = (\')~(\')
 
 LineTerminator = \r|\n|\r\n
 espacio = {LineTerminator} | [ \t\f]
+
+%{
+    private TablaSimbolos tabla;
+    public Yylex(Reader in, TablaSimbolos t){
+        this(in);
+        this.tabla = t;
+    }
+%}
 
 %{
     private Symbol symbol(int type, Object value){
@@ -119,7 +128,12 @@ espacio = {LineTerminator} | [ \t\f]
 "'" {return new Symbol(sym.SimbEsp_Comilla, yychar, yyline, yytext());}
 
 /* Identificador */
-{L}({L}|{D}|_)* {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
+{L}({L}|{D}|_)* {return new Symbol(sym.Identificador, yychar, yyline, yytext());
+                    Simbolo s;
+                    if ((s = tabla.buscar(yytext())) == null)
+                        s = tabla.insertar(yytext());
+                        return new Symbol(sym.ID, s);
+                }
 
 /* Numeros */
 ("+"|"-")? {D}+ (("e"|"E")("+"|"-")?{D}+)? {return new Symbol(sym.Numero_Exact, yychar, yyline, yytext());}
