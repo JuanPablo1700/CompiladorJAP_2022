@@ -256,6 +256,10 @@ DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
+            |   PR_Exact Identificador OpAsig Numero_Part PuntoComa
+                {:
+                    this.parser.errores += "Error semántico 1. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número entero. \n";
+                :}
             |   PR_Exact Identificador PuntoComa
 
             |   ERRORES Identificador PuntoComa
