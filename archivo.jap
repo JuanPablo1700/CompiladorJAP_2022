@@ -1,11 +1,7 @@
 class caminar {
  def void main(){
-	exact grado;
-	grado = 'ghola';
+	exact grado = 5.9;
+	**grado = 'ghola';
  	AsignaGrados();
  }
-
- def void AsignaGrados() {
-
-}
 }**Fin class

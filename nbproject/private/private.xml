@@ -5,8 +5,10 @@
         <group>
             <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/IDE.java</file>
             <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Lexer.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/LexerCup.flex</file>
             <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Sintax.cup</file>
             <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Principal.java</file>
+            <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/TablaSimbolos.java</file>
             <file>file:/C:/Users/Juan%20Pablo/OneDrive/Documentos/8vo_Semestre/Autómatas%20II/Compilador/src/compilador/Lexer.flex</file>
         </group>
     </open-files>
