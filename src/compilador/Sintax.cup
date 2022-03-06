@@ -230,7 +230,11 @@ SENTENCIA   ::= DECLARA_ID | DECLARA_ID SENTENCIA
             |   ASIGNACION | ASIGNACION SENTENCIA
             |   METODOS_DEF | METODOS_DEF SENTENCIA
 ;
-DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
+DECLARA_ID  ::= PR_Exact Identificador:s OpAsig Numero_Exact:n PuntoComa {:
+        if((s.valor == null) || (tipo(s.valor) == tipo(n))){
+            s.valor = n;
+        }
+    :}
 
             |   ERRORES Identificador OpAsig  Numero_Exact PuntoComa
             |   PR_Exact ERRORES OpAsig  Numero_Exact PuntoComa
@@ -256,7 +260,7 @@ DECLARA_ID  ::= PR_Exact Identificador OpAsig Numero_Exact PuntoComa
                 {:
                     this.parser.errores += "Error sintáctico 17. Línea: "+ (eright + 1) + " Se esperaba un ';' al final de la instrucción. \n";
                 :}
-            |   PR_Exact Identificador OpAsig Numero_Part PuntoComa
+            |   PR_Exact Identificador OpAsig Numero_Part:e PuntoComa
                 {:
                     this.parser.errores += "Error semántico 1. Línea: "+ (eright + 1) + " Tipo de dato incompatible. Se esperaba un número entero. \n";
                 :}
